@@ -1,0 +1,3 @@
+# CI replay marker for test/wasm-pack
+feature_branch: replay-30608b05
+workflow: .github/workflows/ci-sdk.yaml

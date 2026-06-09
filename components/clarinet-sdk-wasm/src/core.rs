@@ -278,7 +278,7 @@ impl SDKOptions {
     #[wasm_bindgen(constructor)]
     pub fn new(track_costs: bool, track_coverage: bool, track_performance: Option<bool>) -> Self {
         Self {
-            track_costs,
+            track_costs: !track_costs,
             track_coverage,
             track_performance: track_performance.unwrap_or(false),
         }
