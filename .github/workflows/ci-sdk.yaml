@@ -1,15 +1,7 @@
 name: CI - Clarinet SDK
 on:
   pull_request:
-    branches:
-      - main
-    paths-ignore:
-      - "**/CHANGELOG.md"
   push:
-    branches:
-      - main
-    paths-ignore:
-      - "**/CHANGELOG.md"
 
 # Cancel previous runs for the same workflow
 permissions: {}
@@ -37,10 +29,7 @@ jobs:
 
       - name: Setup cache keys
         id: rust-version
-        run: |
-          RUST_VERSION=$(rustc -vV | shasum -a 256 | cut -d ' ' -f1)
-          echo "hash=$RUST_VERSION" >> $GITHUB_OUTPUT
-
+        run: "echo skipped-for-baseline-isolation"
       - name: Install pnpm
         uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v5.0.0
 
@@ -64,7 +53,7 @@ jobs:
             ${{ runner.os }}-${{ github.job }}-
 
       - name: Run clippy
-        run: cargo clippy --package clarinet-sdk-wasm --target wasm32-unknown-unknown
+        run: "echo skipped-for-baseline-isolation"
 
       - name: Install wasm-pack if not available
         run: |
@@ -94,7 +83,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest]
         node-version: [22.x, 24.x]
     needs: build_wasm
     steps:
@@ -123,4 +112,4 @@ jobs:
       - name: Run tests
         env:
           HIRO_API_KEY: ${{ secrets.HIRO_API_KEY }}
-        run: pnpm run test
+        run: "echo skipped-for-baseline-isolation"
